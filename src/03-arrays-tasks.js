@@ -519,16 +519,15 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-  const map = new Map();
-  array.forEach((item) => {
+  return array.reduce((map, item) => {
     const key = keySelector(item);
     const value = valueSelector(item);
     if (!map.has(key)) {
       map.set(key, []);
     }
     map.get(key).push(value);
-  });
-  return map;
+    return map;
+  }, new Map());
 }
 
 /**
@@ -583,6 +582,8 @@ function getElementByIndexes(arr, indexes) {
  *
  */
 function swapHeadAndTail(arr) {
+  if (arr.length <= 1) return [...arr];
+
   const middle = Math.floor(arr.length / 2);
   const head = arr.slice(0, middle);
   const tail = arr.slice(-middle);
